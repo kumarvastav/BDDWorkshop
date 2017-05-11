@@ -18,20 +18,18 @@ import java.util.Timer;
 /**
  * Created by dharmens on 5/9/17.
  */
-public class stepDefinitions {
+public class stepDefinitions extends SerenityTest {
 
-    WebDriver driver;
-    public stepDefinitions(){driver = new DriverFactory().getDriver();}
+//    WebDriver driver;
+//    public stepDefinitions(){driver = new DriverFactory().getDriver();}
 
     @Given("^I navigate to the cleartrip homepage$")
     public void i_navigate_to_the_cleartrip_homepage() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         driver.get("https://cleartrip.com");
     }
 
     @Given("^I have selected from and to options$")
     public void i_have_selected_a_matching_item() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         driver.findElement(By.cssSelector("#FromTag")).sendKeys("New Delhi, IN - Indira Gandhi Airport (DEL)");
         driver.findElement(By.cssSelector("#ToTag")).sendKeys("Hyderabad, IN - Rajiv Gandhi International (HYD)");
         driver.findElement(By.cssSelector("#DepartDate")).sendKeys(getDate(1), Keys.TAB);
@@ -40,13 +38,11 @@ public class stepDefinitions {
 
     @When("^I click on search flights$")
     public void click_on_search_flights() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         driver.findElement(By.cssSelector("#SearchBtn")).click();
     }
 
     @Then("^list of flight options will be visible$")
     public void the_shipping_cost_should_be_included_in_the_total_price() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(org.openqa.selenium.By.cssSelector(".flightDetailsLink")));
         Assert.assertNotNull(driver.findElement(By.cssSelector(".flightDetailsLink")));

@@ -3,6 +3,7 @@ import net.serenitybdd.cucumber.CucumberWithSerenity;
 import net.thucydides.core.annotations.Managed;
 import org.junit.After;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.WebDriver;
 
 /**
  * Created by dharmens on 5/9/17.
@@ -11,10 +12,13 @@ import org.junit.runner.RunWith;
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(features = { "src/test/resources" },
          tags = {"@Smoke"})
-public class SerenityTest extends DriverFactory {
+public class SerenityTest {
+
+    @Managed(driver = "chrome")
+    WebDriver driver;
 
     @After
     public void tearDown(){
-        DriverFactory.getDriver().quit();
+        driver.quit();
     }
 }
