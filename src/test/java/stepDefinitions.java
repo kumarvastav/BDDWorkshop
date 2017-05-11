@@ -1,3 +1,4 @@
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -38,7 +39,7 @@ public class stepDefinitions {
     }
 
     @When("^I click on search flights$")
-    public void i_add_it_to_the_cart() throws Throwable {
+    public void click_on_search_flights() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         driver.findElement(By.cssSelector("#SearchBtn")).click();
     }
@@ -50,6 +51,22 @@ public class stepDefinitions {
         wait.until(ExpectedConditions.visibilityOfElementLocated(org.openqa.selenium.By.cssSelector(".flightDetailsLink")));
         Assert.assertNotNull(driver.findElement(By.cssSelector(".flightDetailsLink")));
 
+    }
+
+    @When("^I select flight with \"([^\"]*)\" and \"([^\"]*)\" options$")
+    public void select_flight_from_and_to_options(String arg1, String arg2) throws Throwable {
+        driver.findElement(By.cssSelector("#FromTag")).sendKeys(arg1);
+        driver.findElement(By.cssSelector("#ToTag")).sendKeys(arg2);
+        driver.findElement(By.cssSelector("#DepartDate")).sendKeys(getDate(1), Keys.TAB);
+        //driver.findElement(By.cssSelector("#ReturnDate")).sendKeys(getDate(4), Keys.TAB);
+    }
+
+    @When("^I select flights with \"([^\"]*)\" and \"([^\"]*)\" options$")
+    public void selects_flights_with_options(String arg1, String arg2) throws Throwable {
+        driver.findElement(By.cssSelector("#FromTag")).sendKeys(arg1);
+        driver.findElement(By.cssSelector("#ToTag")).sendKeys(arg2);
+        driver.findElement(By.cssSelector("#DepartDate")).sendKeys(getDate(1), Keys.TAB);
+        //driver.findElement(By.cssSelector("#ReturnDate")).sendKeys(getDate(4), Keys.TAB);
     }
 
     public String getDate(int Days){
