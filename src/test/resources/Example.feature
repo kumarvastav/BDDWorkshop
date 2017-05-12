@@ -1,11 +1,7 @@
-Feature: Multiple rows of data
+Feature: Gmail Login
   @Smoke
-  Scenario Outline: Search for flights on cleartrip
-    Given I navigate to the cleartrip homepage
-    And I select flights with "<From>" and "<To>" options
-    When I click on search flights
-    Then list of flight options will be visible
-    Examples:
-    |From                                           |To                                                |
-    |New Delhi, IN - Indira Gandhi Airport |Hyderabad, IN - Rajiv Gandhi International |
-    |New Delhi, IN - Indira Gandhi Airport |Hyderabad, IN - Rajiv Gandhi International |
+  Scenario: Login to Gmail functionality
+    Given I navigate to google mail
+    And Enter username and password
+    When I click on submit
+    Then I should see my mailbox
