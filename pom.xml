@@ -7,6 +7,7 @@
     <groupId>Serenity</groupId>
     <artifactId>Workshop</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <!--———————— Dependencies for serenity core, cucumber and bdd plugin———-->
     <dependencies>
         <dependency>
             <groupId>net.serenity-bdd</groupId>
@@ -28,66 +29,23 @@
             <artifactId>serenity-cucumber</artifactId>
             <version>1.1.30</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.assertj</groupId>-->
-            <!--<artifactId>assertj-core</artifactId>-->
-            <!--<version>1.7.0</version>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
     </dependencies>
     <build>
         <plugins>
             <plugin>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.20</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
                 <configuration>
-                    <parallel>classes</parallel>
-                    <!--<threadCount>3</threadCount> Can be removed-->
                     <forkCount>3</forkCount>
-                    <systemProperties>
-                        <webdriver.driver>driver</webdriver.driver>
-                        <!--<surefire.rerunFailingTestsCount>5</surefire.rerunFailingTestsCount>-->
-                        <!--<surefire.rerunFailingTestsCount>5</surefire.rerunFailingTestsCount>-->
-                    </systemProperties>
+                    <reuseForks>true</reuseForks>
+                    <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>serenity-reports</id>
-                        <goals>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>net.serenity-bdd.maven.plugins</groupId>
                 <artifactId>serenity-maven-plugin</artifactId>
                 <version>1.3.0</version>
-            </plugin>
-            <plugin>
-                <groupId>com.github.temyers</groupId>
-                <artifactId>cucumber-jvm-parallel-plugin</artifactId>
-                <version>4.0.0</version>
-                <executions>
-                    <execution>
-                        <id>generateRunners</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>generateRunners</goal>
-                        </goals>
-                        <configuration>
-                            <glue>com.opencredo.test.ui.acceptance.test.step.definitions</glue>
-                            <outputDirectory>${project.build.directory}/generated-test-sources/cucumber</outputDirectory>
-                            <featuresDirectory>src/test/resources/</featuresDirectory>
-                            <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
-                            <format>html</format>
-                            <strict>true</strict>
-                            <monochrome>true</monochrome>
-                            <!--<tags>""</tags>-->
-                            <filterFeaturesByTags>true</filterFeaturesByTags>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

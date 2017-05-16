@@ -1,5 +1,5 @@
 Feature: Gmail Login
-  @Smoke
+  @Manual
   Scenario: Login to Gmail functionality
     Given I navigate to google mail
     And Enter username and password

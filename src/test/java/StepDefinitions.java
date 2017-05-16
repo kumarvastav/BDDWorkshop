@@ -12,7 +12,7 @@ import java.util.Calendar;
 /**
  * Created by dharmens on 5/9/17.
  */
-public class stepDefinitions extends SerenityTest {
+public class StepDefinitions extends SerenityTest {
 
     @Given("^I navigate to the cleartrip homepage$")
     public void i_navigate_to_the_cleartrip_homepage() throws Throwable {
@@ -23,13 +23,6 @@ public class stepDefinitions extends SerenityTest {
     public void choose_the_round_trip_option() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         driver.findElement(By.cssSelector("#RoundTrip")).click();
-    }
-
-    @Given("^I have selected from and to options$")
-    public void i_have_selected_from_and_to_option() throws Throwable {
-        driver.findElement(By.cssSelector("#FromTag")).sendKeys("New Delhi, IN - Indira Gandhi Airport (DEL)");
-        driver.findElement(By.cssSelector("#ToTag")).sendKeys("Hyderabad, IN - Rajiv Gandhi International (HYD)");
-        driver.findElement(By.cssSelector("#DepartDate")).sendKeys(getDate(1), Keys.TAB);
     }
 
     @When("^I click on search flights$")
