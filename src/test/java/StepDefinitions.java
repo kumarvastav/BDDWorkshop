@@ -2,7 +2,9 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.serenitybdd.core.annotations.findby.By;
+import net.serenitybdd.junit.runners.SerenityRunner;
 import org.junit.Assert;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -12,6 +14,8 @@ import java.util.Calendar;
 /**
  * Created by dharmens on 5/9/17.
  */
+
+@RunWith(SerenityRunner.class)
 public class StepDefinitions extends SerenityTest {
 
     @Given("^I navigate to the cleartrip homepage$")
@@ -32,7 +36,7 @@ public class StepDefinitions extends SerenityTest {
 
     @Then("^list of flight options will be visible$")
     public void the_shipping_cost_should_be_included_in_the_total_price() throws Throwable {
-        waitForAppReady(org.openqa.selenium.By.cssSelector(".progressTracker"));
+        waitForAppReady(By.cssSelector(".progressTracker"));
         Assert.assertNotNull(driver.findElement(By.cssSelector(".resultsContainer")));
 
     }
@@ -70,5 +74,4 @@ public class StepDefinitions extends SerenityTest {
             System.out.println("Element with locator: "+locator+"not loaded:-"+e.getMessage());
         }
     }
-
 }

@@ -1,54 +1,46 @@
-import net.serenitybdd.junit.runners.SerenityParameterizedRunner;
+import Pages.ClearTripHome;
+import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
-import net.thucydides.junit.annotations.TestData;
+import net.thucydides.core.annotations.WithTag;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
-import java.util.Arrays;
-import java.util.Collection;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Created by dharmens on 5/14/17.
  */
 
-@RunWith(SerenityParameterizedRunner.class)
+@RunWith(SerenityRunner.class)
 public class SimpleTest {
 
     @Managed(driver = "chrome")
     WebDriver driver;
 
-    private final String searchTerm;
+    ClearTripHome clearTripHome;
 
-    @TestData
-    public static Collection<Object[]> testData(){
-        return Arrays.asList(new Object[][]{
-                {"cats"},
-                {"dogs"},
-                {"ferrets"},
-                {"rabbits"},
-                {"canaries"}
-        });
-    }
-
-    public SimpleTest(String searchTerm) {
-        this.searchTerm = searchTerm;
-    }
-
+    @WithTag(name="Manual:Audit")
     @Test
     public void startUp() throws InterruptedException {
-        driver.get("https://google.com");
+        clearTripHome.open();
+        Thread.sleep(5000);
+        clearTripHome.chooseTravelPlan("New Delhi","Mumbai","23/05/2017","27/05/2017");
         Thread.sleep(2000);
-        driver.findElement(By.cssSelector("#lst-ib")).sendKeys(searchTerm);
-        Thread.sleep(2000);
-        Assert.assertTrue(driver.findElement(By.cssSelector(".sfibbbc")).getText().contains(searchTerm));
+        waitForAppReady(net.serenitybdd.core.annotations.findby.By.cssSelector(".progressTracker"));
+        Assert.assertNotNull(driver.findElement(net.serenitybdd.core.annotations.findby.By.cssSelector(".resultsContainer")));
     }
 
-    @After
-    public void tearDown(){
-        driver.quit();
+    public void waitForAppReady(org.openqa.selenium.By locator){
+        try{
+            WebDriverWait wait = new WebDriverWait(driver,30);
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+            Thread.sleep(1000);
+        }
+        catch (Exception e){
+            System.out.println("Element with locator: "+locator+"not loaded:-"+e.getMessage());
+        }
     }
 }
